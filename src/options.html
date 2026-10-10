@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Arth setup</title>
+    <style>
+      :root { color-scheme: light dark; }
+      body {
+        margin: 0; padding: 32px 20px 56px; font: 15px/1.55 system-ui, sans-serif;
+        color: light-dark(#1f1f1f, #ececec); background: light-dark(#fafafa, #1b1b1b);
+      }
+      main { max-width: 620px; margin: 0 auto; }
+      header { display: flex; align-items: center; gap: 14px; margin-bottom: 6px; }
+      header img { width: 48px; height: 48px; }
+      h1 { font-size: 26px; margin: 0; }
+      h2 { font-size: 17px; margin: 30px 0 8px; }
+      p, li { margin: 6px 0; }
+      ul, ol { padding-left: 22px; }
+      .lead { color: light-dark(#444, #c4c4c4); margin: 0 0 4px; }
+      .box {
+        background: light-dark(#fff, #262626); border: 1px solid light-dark(rgba(0, 0, 0, 0.12), rgba(255, 255, 255, 0.14));
+        border-radius: 10px; padding: 16px 18px; margin-top: 10px;
+      }
+      label { display: block; font-weight: 600; margin: 12px 0 4px; }
+      label.check { display: flex; gap: 10px; align-items: flex-start; font-weight: 400; margin: 14px 0 4px; }
+      label.check input { margin-top: 5px; }
+      input[type='password'], select {
+        width: 100%; box-sizing: border-box; font: inherit; padding: 8px 10px; border-radius: 7px;
+        color: inherit; background: light-dark(#fff, #1b1b1b); border: 1px solid light-dark(rgba(0, 0, 0, 0.3), rgba(255, 255, 255, 0.3));
+      }
+      .row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+      button {
+        font: inherit; font-weight: 600; padding: 8px 14px; border-radius: 7px; cursor: pointer;
+        color: inherit; background: light-dark(#f0f0f0, #333); border: 1px solid light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.22));
+      }
+      button.primary { color: #fff; background: #0b57d0; border-color: #0b57d0; }
+      button:disabled { opacity: 0.55; cursor: default; }
+      :focus-visible { outline: 2px solid light-dark(#0b57d0, #8ab4f8); outline-offset: 2px; }
+      #status { min-height: 1.5em; margin-top: 12px; }
+      #status[data-kind='ok'] { color: light-dark(#17692c, #81c995); }
+      #status[data-kind='error'] { color: light-dark(#b3261e, #f2b8b5); }
+      .small { font-size: 13px; color: light-dark(#555, #b4b4b4); }
+      a { color: light-dark(#0b57d0, #8ab4f8); }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <img src="../icons/icon128.png" alt="" />
+        <h1>Arth</h1>
+      </header>
+      <p class="lead">Understand what you're reading.</p>
+
+      <h2>What Arth does</h2>
+      <p>
+        While you read a conversation on chatgpt.com, select a word or short phrase and click the small “Arth” button
+        that appears next to it. Arth shows a short explanation of what that text means in that passage.
+      </p>
+
+      <h2>What Arth sends, and where</h2>
+      <p>Nothing is sent until you click the Arth button. When you click it, Arth sends this to the OpenAI API:</p>
+      <ul>
+        <li>the text you selected (up to 300 characters);</li>
+        <li>the text around it in the same message (up to about 1,500 characters);</li>
+        <li>up to three neighbouring messages from the same conversation (up to 500 characters each).</li>
+      </ul>
+      <p>
+        It goes directly from your browser to OpenAI, using your own OpenAI API key, and is handled under OpenAI’s API
+        terms and privacy policy. Arth has no server of its own. Arth does not keep your selections or the explanations,
+        and has no analytics or tracking.
+      </p>
+
+      <h2>Connect your OpenAI API key</h2>
+      <div class="box">
+        <p>
+          Arth uses the OpenAI API, which is separate from a ChatGPT subscription and is billed by OpenAI to your API
+          account. A typical explanation costs a small fraction of a cent.
+        </p>
+        <ol>
+          <li>Create a key at <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener noreferrer">platform.openai.com/api-keys</a>.</li>
+          <li>Paste it below. It is stored only in this browser and is sent only to api.openai.com.</li>
+        </ol>
+        <label for="key">OpenAI API key</label>
+        <input id="key" type="password" autocomplete="off" spellcheck="false" placeholder="sk-…" />
+        <label for="model">Model</label>
+        <select id="model"></select>
+        <p class="small">“Check key” asks OpenAI which models your key can use and fills this list.</p>
+        <label class="check">
+          <input id="consent" type="checkbox" />
+          <span>I understand that when I click Arth, my selected text and nearby conversation text are sent to OpenAI using my API key.</span>
+        </label>
+        <div class="row">
+          <button id="check" type="button">Check key</button>
+          <button id="save" type="button" class="primary">Save</button>
+          <button id="remove" type="button">Remove key and settings</button>
+        </div>
+        <p id="status" role="status"></p>
+      </div>
+
+      <h2>Your control</h2>
+      <ul>
+        <li>“Remove key and settings” deletes everything Arth has saved. You can also revoke the key at OpenAI at any time.</li>
+        <li>Press Escape or click elsewhere to close an explanation; a request still in progress is cancelled.</li>
+        <li>Removing the extension from Chrome removes its saved data.</li>
+      </ul>
+      <p class="small">
+        Arth is an independent project. It is not affiliated with, endorsed by, or produced by OpenAI. “ChatGPT” and
+        “OpenAI” are trademarks of OpenAI, used here only to describe the services Arth works with.
+      </p>
+    </main>
+    <script src="provider-openai.js"></script>
+    <script src="options.js"></script>
+  </body>
+</html>

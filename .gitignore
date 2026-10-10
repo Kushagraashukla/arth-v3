@@ -1,0 +1,2 @@
+# Built release archives; rebuild from manifest.json, src/ and icons/
+dist/

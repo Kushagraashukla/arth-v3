@@ -1,0 +1,48 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>Fixture conversation title</title>
+<!-- Phase 2 test page: open this file in Chrome; results render below and in window.__results.
+     Markup mirrors the two live ChatGPT UIs as inspected on 2026-10-05. Not part of the store package. -->
+<style>body { font: 14px sans-serif; } #out { white-space: pre-wrap; border-top: 1px solid #999; margin-top: 2em; }</style>
+
+<nav id="side">Account: someone@example.com <input id="secret" value="secret-input-value" /></nav>
+<div id="root"></div>
+
+<!-- Logged-in UI. Turns 1, 2 and 5 are deliberately absent, as when ChatGPT unmounts them. -->
+<template id="logged-in">
+  <div><section data-testid="conversation-turn-3" data-turn="user"><h4>You said:</h4>
+    <div data-message-author-role="user"><div><div class="whitespace-pre-wrap">What is a closure in JavaScript?</div></div></div>
+  </section></div>
+  <div><section data-testid="conversation-turn-4" data-turn="assistant"><h4>ChatGPT said:</h4>
+    <div data-message-author-role="assistant"><div class="markdown"><p>A <strong>JavaScript closure</strong> is created when a function remembers variables from its outer scope. See <a href="#">MDN: Closures</a> for details.</p>
+<ul>
+<li><strong>Encapsulation:</strong> closures keep data private.</li>
+<li>State survives between calls.</li>
+</ul>
+<pre><div><div>JavaScript</div><button aria-label="Copy"></button></div><div><pre><code><span>function</span><span> counter() {
+  </span><span>let</span><span> count = 0;
+}</span></code></pre></div></pre>
+<table><thead><tr><th>Concept</th><th>Main idea</th></tr></thead><tbody><tr><td>Hoisting</td><td>Declarations move up</td></tr></tbody></table>
+<p>Closures power many patterns.</p></div></div>
+    <div><button aria-label="Copy"></button><button aria-label="Good response"></button></div>
+  </section></div>
+  <div><section data-testid="conversation-turn-6" data-turn="user"><h4>You said:</h4>
+    <div data-message-author-role="user"><div><div class="whitespace-pre-wrap">Now explain hoisting.</div></div></div>
+  </section></div>
+  <div><section data-testid="conversation-turn-7" data-turn="assistant"><h4>ChatGPT said:</h4>
+    <div data-message-author-role="assistant"><div class="markdown"><p id="long"></p></div></div>
+  </section></div>
+</template>
+
+<!-- Logged-out UI: no turn numbers at all. -->
+<template id="anon">
+  <ol aria-label="Conversation">
+    <li data-message-role="user"><h4>You said:</h4><button><p data-user-message-copy="">What does idempotent mean?</p></button></li>
+    <li data-message-role="assistant"><h4>ChatGPT said:</h4><div data-assistant-markdown=""><p>An idempotent operation gives the same result however many times it runs.</p></div></li>
+  </ol>
+</template>
+
+<pre id="out">running…</pre>
+<script src="../src/adapter.js"></script>
+<script src="../src/context.js"></script>
+<script src="context.test.js"></script>
