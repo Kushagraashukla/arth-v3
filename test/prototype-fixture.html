@@ -1,0 +1,24 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>Arth v3 fixture</title>
+<!-- v3 (prototype/) test page. Run with: node test/run-prototype.mjs
+     It needs test/fake-chrome.js injected first and an http:// address, which the runner provides. -->
+<style>
+  body { font: 16px/1.7 sans-serif; margin: 40px; max-width: 720px; }
+  #out { white-space: pre-wrap; border-top: 1px solid #999; margin-top: 2em; font-size: 13px; }
+</style>
+<main id="page">
+  <p id="a">A <b>clo</b>sure in JavaScript keeps variables alive after the outer function returns.</p>
+  <p id="b">The road closure on Main Street lasts a week, so buses take another route.</p>
+  <p id="c">Every closure  captures
+    its scope.</p>
+  <p id="d">हमें इसे समझना है। यह समझ ज़रूरी है।</p>
+  <p id="e"><a href="#link" id="link">Idempotence</a> means repeating an operation changes nothing.</p>
+  <section id="dyn"></section>
+</main>
+<pre id="out">running…</pre>
+<script src="../prototype/src/adapter.js"></script>
+<script src="../prototype/src/context.js"></script>
+<script src="../prototype/src/vocab.js"></script>
+<script src="../prototype/src/reader.js"></script>
+<script src="prototype.test.js"></script>

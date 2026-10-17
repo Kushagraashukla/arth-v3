@@ -35,6 +35,7 @@
       "js": [
         "src/adapter.js",
         "src/context.js",
+        "src/vocab.js",
         "src/reader.js"
       ],
       "run_at": "document_idle"
@@ -51,5 +52,9 @@
   ],
   "action": {
     "default_title": "Ask Arth about this page"
+  },
+  "options_ui": {
+    "page": "src/words.html",
+    "open_in_tab": true
   }
 }

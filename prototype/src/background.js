@@ -149,6 +149,7 @@ function trustedSender(sender) {
 
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
   if (!trustedSender(sender)) return;
+  if (msg?.type === 'OPEN_WORDS') return void chrome.runtime.openOptionsPage(); // the saved-words page
   if (msg?.type === 'PARTIAL') {
     // The answer so far, from the worker tab: pass it on to the tab that asked.
     if (sender.tab.id === current?.tabId && msg.requestId === current.key && typeof msg.text === 'string') {
@@ -188,6 +189,11 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
 chrome.tabs.onRemoved.addListener(async (tabId) => {
   const { workerTabId } = await chrome.storage.session.get('workerTabId');
   if (tabId === workerTabId) await chrome.storage.session.remove('workerTabId');
+});
+
+// First install: the six-step guide. (The same steps then appear as live tips on the card.)
+chrome.runtime.onInstalled.addListener((details) => {
+  if (details.reason === 'install') chrome.tabs.create({ url: chrome.runtime.getURL('src/guide.html') });
 });
 
 // Toolbar icon: open the question box on the page the user is looking at.

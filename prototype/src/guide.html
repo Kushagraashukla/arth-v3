@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="hi-Latn">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Arth – Shuru karein</title>
+<style>
+  :root { color-scheme: light dark; --fg: #1d2129; --muted: #5b6270; --bg: #f4f5f8; --panel: #fff; --subtle: #f4f5f8; --line: rgba(20, 24, 33, 0.14); --line-strong: rgba(20, 24, 33, 0.32); --accent: #3451d1; --on-accent: #fff; --mark: rgba(52, 81, 209, 0.16); --saved: rgba(214, 158, 46, 0.18); }
+  @media (prefers-color-scheme: dark) { :root { --fg: #e6e8ee; --muted: #a3a9b6; --bg: #17181d; --panel: #1e2026; --subtle: #262931; --line: rgba(255, 255, 255, 0.14); --line-strong: rgba(255, 255, 255, 0.32); --accent: #8fa2ff; --on-accent: #10131a; --mark: rgba(143, 162, 255, 0.22); --saved: rgba(214, 158, 46, 0.22); } }
+  * { border-radius: 0; box-sizing: border-box; }
+  body { margin: 0; padding: 40px 16px 56px; font: 15px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--fg); background: var(--bg); }
+  main { max-width: 860px; margin: 0 auto; }
+  .brand { font-weight: 700; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin: 0 0 8px; }
+  h1 { font-size: 30px; line-height: 1.2; margin: 0 0 8px; letter-spacing: -0.01em; }
+  .lead { color: var(--muted); margin: 0 0 32px; max-width: 620px; }
+  ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; counter-reset: step; }
+  li { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: center; padding: 20px 22px; background: var(--panel); border: 1px solid var(--line); border-left: 2px solid var(--accent); counter-increment: step; }
+  li h2 { margin: 0 0 6px; font-size: 18px; }
+  li h2::before { content: counter(step) ' / 6'; display: block; margin-bottom: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; color: var(--accent); }
+  li p { margin: 0; color: var(--muted); }
+  li p b { color: var(--fg); font-weight: 600; }
+  @media (max-width: 720px) { li { grid-template-columns: 1fr; } }
+
+  /* Small pictures of the real controls, drawn with the same look as the card. */
+  .demo { font-size: 13px; line-height: 1.5; color: var(--fg); }
+  .para { padding: 10px 12px; background: var(--subtle); border: 1px solid var(--line); }
+  .sel { background: var(--accent); color: var(--on-accent); padding: 0 2px; }
+  .saved { background: var(--saved); text-decoration: underline dotted #b47814; text-underline-offset: 3px; }
+  .bar { display: inline-flex; margin-top: 6px; box-shadow: 0 8px 20px -10px rgba(16, 24, 40, 0.4); }
+  .btn { display: inline-block; padding: 5px 11px; font-size: 12px; font-weight: 500; border: 1px solid var(--line); background: var(--panel); color: var(--fg); }
+  .btn + .btn { margin-left: -1px; }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .card { background: var(--panel); border: 1px solid var(--line); border-top: 2px solid var(--accent); box-shadow: 0 10px 24px -14px rgba(16, 24, 40, 0.45); }
+  .tools { display: flex; align-items: center; gap: 5px; padding: 6px 10px; background: var(--subtle); border-bottom: 1px solid var(--line); }
+  .wm { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; color: var(--accent); margin-right: 2px; }
+  .menu { padding: 2px 6px; font-size: 11px; border: 1px solid var(--line); background: var(--panel); }
+  .menu.on { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .gap { flex: 1; }
+  .body { padding: 8px 10px 10px; }
+  .sub { margin-top: 8px; padding: 6px 8px; border: 1px solid var(--line); border-left: 2px solid var(--accent); background: var(--subtle); }
+  .tip { margin-top: 8px; padding: 6px 8px; font-size: 12px; background: var(--panel); border: 1px solid var(--accent); border-left-width: 3px; }
+  .list .row { padding: 6px 10px; border-bottom: 1px solid var(--line); }
+  .list .row:last-child { border-bottom: 0; }
+  .list b { display: block; }
+
+  .next { margin-top: 28px; padding: 22px; background: var(--panel); border: 1px solid var(--line); border-top: 2px solid var(--accent); display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center; justify-content: space-between; }
+  .next p { margin: 0; color: var(--muted); max-width: 520px; }
+  .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  a.cta, button { font: inherit; font-size: 14px; padding: 9px 16px; border: 1px solid var(--accent); cursor: pointer; text-decoration: none; }
+  a.cta { background: var(--accent); color: var(--on-accent); }
+  button { background: var(--panel); color: var(--fg); border-color: var(--line-strong); }
+  button:hover { border-color: var(--accent); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .note { margin-top: 18px; font-size: 13px; color: var(--muted); }
+  #status { font-size: 13px; color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <p class="brand">Arth</p>
+  <h1>Arth use karna, 6 aasaan steps mein</h1>
+  <p class="lead">Kisi bhi website par koi word ya line samajh na aaye, to wahin uska matlab dekho. Na naya tab, na naya chat. Jab aap pehli baar use karoge, yahi steps card ke paas chhote tips ban kar live dikhenge.</p>
+
+  <ol>
+    <li>
+      <div>
+        <h2>Word ya line select karo</h2>
+        <p>Kisi bhi page par (Wikipedia, ChatGPT, news, docs) mouse se word select karo. Neeche do button aayenge: <b>Arth</b> aur <b>Ask</b>.</p>
+      </div>
+      <div class="demo">
+        <div class="para">…elements that remain invariant when <span class="sel">raised</span> to a positive power…</div>
+        <div class="bar"><span class="btn primary">Arth</span><span class="btn">Ask</span></div>
+      </div>
+    </li>
+    <li>
+      <div>
+        <h2>"Arth" dabao, matlab wahin pao</h2>
+        <p>Card mein us word ka matlab aayega, <b>usi jagah ke context mein</b>, dictionary wala generic nahi. <b>Ask</b> dabao to apna sawaal likh sakte ho.</p>
+      </div>
+      <div class="demo card">
+        <div class="tools"><span class="wm">ARTH</span><span class="menu">Layman</span><span class="menu">Hinglish</span><span class="gap"></span><span class="btn">Save</span></div>
+        <div class="body">Yahan "raised" ka matlab hai kisi number ko power dena, jaise 2 ko 3rd power tak…</div>
+      </div>
+    </li>
+    <li>
+      <div>
+        <h2>Style aur bhasha apne hisaab se</h2>
+        <p>Card ke upar do menu hain. Style: <b>Concise, Layman, Simple + Analogy, Deep Dive, Technical, Exam Notes</b>. Bhasha: <b>English, Hinglish, हिंदी</b>. Badalte hi answer <b>isi card mein</b> naye style mein dobara ban jata hai, aur aage ke liye yaad rehta hai.</p>
+      </div>
+      <div class="demo card">
+        <div class="tools"><span class="wm">ARTH</span><span class="menu on">Exam Notes</span><span class="menu on">हिंदी</span><span class="gap"></span></div>
+        <div class="body">Definition: …<br>Key points: …<br>Revision: …</div>
+      </div>
+    </li>
+    <li>
+      <div>
+        <h2>Answer ke andar ka word bhi</h2>
+        <p>Answer mein koi word samajh na aaye? Use select karo aur chhota <b>Arth</b> chip dabao. Uska matlab usi card mein neeche khulta hai. <b>Back</b> se wapas, <b>Close</b> se band.</p>
+      </div>
+      <div class="demo card">
+        <div class="body">…number ko <span class="sel">power</span> dena… <span class="btn primary">Arth</span>
+          <div class="sub"><b>power</b><br>Kisi number ko khud se kitni baar multiply karna hai, ye batana.</div>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div>
+        <h2>Save karo, baad mein yaad rahega</h2>
+        <p><b>Save</b> dabao. Jab aap is page par wapas aaoge, wo word halka sa highlight dikhega. Us par mouse le jao (ya tap karo) to saved matlab wahin dikh jayega.</p>
+      </div>
+      <div class="demo">
+        <div class="para">…remain invariant when <span class="saved">raised</span> to a positive power…</div>
+        <div class="tip"><b>raised</b><br>Kisi number ko power dena, jaise a^2…</div>
+      </div>
+    </li>
+    <li>
+      <div>
+        <h2>Apne saare words, ek jagah</h2>
+        <p>Card mein <b>Words</b> dabao (ya extension ke Options). Saare saved words, unke matlab, search, aur apne notes. Toolbar ke Arth icon se poore page ke baare mein bhi pooch sakte ho.</p>
+      </div>
+      <div class="demo card list">
+        <div class="row"><b>raised</b>Kisi number ko power dena…</div>
+        <div class="row"><b>power</b>Kitni baar multiply karna hai…</div>
+      </div>
+    </li>
+  </ol>
+
+  <section class="next" aria-label="Practice">
+    <p>Ab khud try karo. Ye page kholo, koi bhi word select karo, aur card ke paas aane wale tips follow karo.</p>
+    <div class="actions">
+      <a class="cta" href="https://en.wikipedia.org/wiki/Idempotence" target="_blank" rel="noopener">Practice page kholo</a>
+      <button type="button" id="restart">Live tips dobara dikhao</button>
+    </div>
+  </section>
+  <p class="note">Jo tabs Arth install karne se pehle khule the, unhe ek baar refresh (F5) karo. Pehli baar Arth ek ChatGPT tab background mein kholta hai; use band mat karna. <span id="status" role="status"></span></p>
+</main>
+<script src="guide.js"></script>
+</body>
+</html>
